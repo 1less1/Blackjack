@@ -1,7 +1,6 @@
 package blackjack;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Hand {
     public ArrayList<Card> hand;
@@ -68,16 +67,17 @@ public class Hand {
         hand.clear();
     }
 
-    public Boolean checkBust(Integer handScore) {
-        if (handScore > 21) {
+    public Boolean noBust() {
+        if (handScore <= 21) {
             return true;
         } else {
+            System.out.println("Bust!");
             return false;
         }
     }
 
     public String toString() {
-        return "Current Hand: " + getHand() + "\nCurrent Score: " + getHandScore();
+        return "Hand: " + getHand() + "\nScore: " + getHandScore();
     }
 
 

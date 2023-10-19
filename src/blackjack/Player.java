@@ -9,6 +9,6 @@ public interface Player {
 
     void shoeWasReset(Integer shoeSize);
 
-
-
+    String getName();
 }
+

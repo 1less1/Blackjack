@@ -2,26 +2,29 @@ package blackjack;
 
 public class SimplePlayer implements Player{
 
+
     public Hand hand;
     public Shoe shoe;
 
+    public String name;
+
     public Boolean shoeReset;
 
-    public SimplePlayer (Shoe s, Hand h) {
-        hand=h;
+    public SimplePlayer(String n, Shoe s, Hand h) {
+        name=n;
         shoe=s;
+        hand=h;
     }
-
-
 
     @Override
     public boolean willHitHand() {
+
         if (hand.handScore>=17) {
-            System.out.println("The player will stay :(");
+            System.out.println(name+" will stay :(");
             return false;
         }
         else {
-            System.out.println("The player will hit!");
+            System.out.println(name+" will hit!");
             return true;
         }
     }
@@ -35,13 +38,12 @@ public class SimplePlayer implements Player{
 
     }
     @Override
-    public void shoeWasReset(Integer shoeSize) {
-        if ((shoeSize%52)==0) {
-            shoeReset = false;
-        }
-        else {
-            shoeReset = true;
-        }
+    public void shoeWasReset(Integer decks) {
 
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

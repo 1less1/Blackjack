@@ -3,23 +3,35 @@ package blackjack;
 public class Dealer implements Player{
 
 
-    public Hand hand;
+    public Hand dealerHand;
+    public Hand oppHand;
     public Shoe shoe;
 
+    public String name;
+
     public Boolean shoeReset;
-    public Dealer(Shoe s, Hand h) {
-        hand=h;
+    public Dealer(String n, Shoe s, Hand dh, Hand op) {
+        dealerHand = dh;
+        oppHand = op;
         shoe=s;
+        name=n;
 
     }
     @Override
-    public boolean willHitHand() {
-        return false;
+    public boolean willHitHand(){
+        if (dealerHand.handScore>=oppHand.handScore) {
+            System.out.println(name+" will stay :(");
+            return false;
+        }
+        else {
+            System.out.println(name+" will hit!");
+            return true;
+        }
     }
 
     @Override
     public void hitter() {
-        hand.hitHand(shoe.drawCard());
+        dealerHand.hitHand(shoe.drawCard());
     }
 
     @Override
@@ -29,11 +41,10 @@ public class Dealer implements Player{
 
     @Override
     public void shoeWasReset(Integer shoeSize) {
-        if ((shoeSize%52)==0) {
-            shoeReset = false;
-        }
-        else {
-            shoeReset = true;
-        }
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

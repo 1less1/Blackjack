@@ -5,7 +5,7 @@ public class PlayerDriver {
     public static void main(String args[]) {
         Shoe s = new Shoe(2);
         Hand h = new Hand(s);
-        SimplePlayer dom = new SimplePlayer(s,h);
+        SimplePlayer dom = new SimplePlayer("Dom",s,h);
 
         while (dom.willHitHand()) {
             dom.hitter();
