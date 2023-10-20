@@ -45,9 +45,6 @@ public class Card {
     }
 
 
-
-
-
     /*public boolean equals(Card c) {
         return c.cardValue == this.cardValue;
     }

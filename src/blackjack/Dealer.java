@@ -10,9 +10,9 @@ public class Dealer implements Player{
     public String name;
 
     public Boolean shoeReset;
-    public Dealer(String n, Shoe s, Hand dh, Hand op) {
+    public Dealer(String n, Shoe s, Hand dh, Hand oh ) {
         dealerHand = dh;
-        oppHand = op;
+        oppHand=oh;
         shoe=s;
         name=n;
 

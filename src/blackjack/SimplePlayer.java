@@ -18,7 +18,6 @@ public class SimplePlayer implements Player{
 
     @Override
     public boolean willHitHand() {
-
         if (hand.handScore>=17) {
             System.out.println(name+" will stay :(");
             return false;
@@ -35,6 +34,7 @@ public class SimplePlayer implements Player{
 
     @Override
     public void seeOpponentsCards(Hand h) {
+        System.out.println("Last Game Opponent's "+h);
 
     }
     @Override

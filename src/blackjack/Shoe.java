@@ -17,7 +17,7 @@ public class Shoe implements Iterable<Card>{
 
     public void resetShoe() {
         shoe.clear();
-        System.out.println("The shoe has been reset!");
+        System.out.println("The shoe has been reset with "+numDecks+" decks!");
 
         for (int i=0; i < numDecks; i++) {
             insertDeck();

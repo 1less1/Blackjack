@@ -2,74 +2,101 @@ package blackjack;
 
 public class Game {
 
-    public Player player1;
-    public Player dealer;
-
-    public Integer shoeSize;
+    public Player player;
+    public Player opponent;
 
     public Shoe shoe;
     public Hand playerHand;
-    public Hand dealerHand;
+    public Hand oppHand;
+
+    public Hand oldPlayerHand;
+    public Hand oldOppHand;
 
     public Integer playerRecord=0;
-    public Integer dealerRecord=0;
-
-    //public Boolean playRound;
+    public Integer oppRecord =0;
 
     public Game(Integer shoeSize) {
         shoe = new Shoe(shoeSize);
     }
 
     public void playRound(Boolean y) {
-        if (y==true) {
+        if (y) {
             shoe.shuffle();
             playerHand = new Hand(shoe);
-            dealerHand = new Hand(shoe);
-            player1 = new SimplePlayer("Dom",shoe, playerHand);
-            dealer = new Dealer("Dealer",shoe, dealerHand,playerHand);
+            oppHand = new Hand(shoe);
+            player = new SimplePlayer("Ishimwe",shoe, playerHand);
+            opponent = new Dealer("Dealer",shoe, oppHand, playerHand);
 
             System.out.println("Round Start!!!!");
 
-            while (player1.willHitHand() && playerHand.noBust()) {
-                player1.hitter();
-                //System.out.println(playerHand);
-            }
+            takeTurns();
 
-            if (playerHand.noBust()) {
-                while(dealer.willHitHand() && dealerHand.noBust()) {
-                    dealer.hitter();
-                    //System.out.println(dealerHand);
-                }
-            }
+            determineWinner();
 
+            getHands();
+            checkShoe();
+            System.out.println();
 
+            // Last round's hands for each player
+            oldPlayerHand=playerHand;
+            oldOppHand=oppHand;
 
 
-            if (playerHand.noBust() && (((21-playerHand.handScore) < (21-dealerHand.handScore)) || dealerHand.noBust()==false)) {
-                playerRecord += 1;
-                System.out.println(player1.getName() + " wins!");
-            } else {
-                dealerRecord+=1;
-                System.out.println(dealer.getName()+" wins!");
-            }
-
-            System.out.println(player1.getName()+"'s "+playerHand);
-            System.out.println(dealer.getName()+"'s "+dealerHand);
-            System.out.println("");
-
-
-
-
+            
 
         }
     }
 
     public void displayRecords() {
-        System.out.println(player1.getName()+" has "+playerRecord+ " wins");
-        System.out.println(dealer.getName()+" has "+dealerRecord+ " wins");
+        System.out.println(player.getName()+" has "+playerRecord+ " wins");
+        System.out.println(opponent.getName()+" has "+ oppRecord + " wins");
 
     }
 
+    public void takeTurns() {
+        while (player.willHitHand() && playerHand.noBust()) {
+            player.hitter();
+        }
+
+        if (playerHand.noBust()) {
+            while(opponent.willHitHand() && oppHand.noBust()) {
+                opponent.hitter();
+            }
+        }
+    }
+
+    public void determineWinner() {
+
+        if (playerHand.noBust() && (Math.abs(21-playerHand.handScore)<Math.abs(21-oppHand.handScore)) ) {
+            playerRecord+=1;
+            System.out.println(player.getName()+" wins!");
+        }
+        else if (playerHand.handScore!=oppHand.handScore){
+            oppRecord+=1;
+            System.out.println(opponent.getName()+" wins!");
+        }
+
+    }
+
+    public void getHands() {
+        System.out.println(player.getName()+"'s "+playerHand);
+        System.out.println(opponent.getName()+"'s "+ oppHand);
+    }
+
+    public boolean checkShoe() {
+        if (shoe.getShoeSize()<16) {
+            shoe.resetShoe();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void getLastRoundHands() {
+        System.out.print("Last Round");
+        System.out.println(oldPlayerHand);
+        System.out.println(oldOppHand);
+    }
 
 
 }

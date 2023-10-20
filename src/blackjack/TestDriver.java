@@ -2,13 +2,13 @@ package blackjack;
 
 public class TestDriver {
 
-    public static void main (String args[]) {
+    public static void main (String[] args) {
         Shoe s = new Shoe(1);
 
         Hand h = new Hand(s);
 
         System.out.println(h);
-        System.out.println("");
+        System.out.println();
 
         // Test ace functionality
         Card ace1 = new Card(0);
