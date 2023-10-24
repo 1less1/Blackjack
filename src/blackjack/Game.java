@@ -2,101 +2,110 @@ package blackjack;
 
 public class Game {
 
-    public Player player;
-    public Player opponent;
-
     public Shoe shoe;
-    public Hand playerHand;
-    public Hand oppHand;
+    public Player player1;
+    public Player player2;
 
-    public Hand oldPlayerHand;
-    public Hand oldOppHand;
+    Hand player1Hand;
+    Hand player2Hand;
 
-    public Integer playerRecord=0;
-    public Integer oppRecord =0;
+    public Integer player1Record=0;
+    public Integer player2Record=0;
 
-    public Game(Integer shoeSize) {
-        shoe = new Shoe(shoeSize);
+    public Game(Integer numDecks, Player player1, Player player2) {
+        this.shoe= new Shoe(numDecks);
+        this.player1=player1;
+        this.player2=player2;
+
     }
 
-    public void playRound(Boolean y) {
-        if (y) {
-            shoe.shuffle();
-            playerHand = new Hand(shoe);
-            oppHand = new Hand(shoe);
-            player = new SimplePlayer("Ishimwe",shoe, playerHand);
-            opponent = new Dealer("Dealer",shoe, oppHand, playerHand);
+    public void playRound(Integer numRounds) {
+        player1Hand =  new Hand(shoe);
+        player2Hand = new Hand(shoe);
 
-            System.out.println("Round Start!!!!");
 
+        for (int i=0; i<numRounds; i++) {
+            //play game
+            checkShoe();
             takeTurns();
+
+            System.out.println(player1.getName()+"'s "+ getPlayer1Hand());
+            System.out.println(player2.getName()+"'s "+ getPlayer2Hand());
 
             determineWinner();
 
-            getHands();
-            checkShoe();
-            System.out.println();
-
-            // Last round's hands for each player
-            oldPlayerHand=playerHand;
-            oldOppHand=oppHand;
-
-
-            
-
+            newHands();
         }
+        displayRecords();
+
     }
 
-    public void displayRecords() {
-        System.out.println(player.getName()+" has "+playerRecord+ " wins");
-        System.out.println(opponent.getName()+" has "+ oppRecord + " wins");
 
+    public void hitter(Hand h) {
+        h.hitHand(shoe.drawCard());
     }
 
     public void takeTurns() {
-        while (player.willHitHand() && playerHand.noBust()) {
-            player.hitter();
+        while (player1.willHitHand(player1Hand) && player1Hand.noBust()) {
+            hitter(player1Hand);
         }
 
-        if (playerHand.noBust()) {
-            while(opponent.willHitHand() && oppHand.noBust()) {
-                opponent.hitter();
+        if (player1Hand.noBust()) {
+            player2.seeOpponentsCards(player1Hand);
+            while(player2.willHitHand(player2Hand) && player2Hand.noBust()) {
+                hitter(player2Hand);
             }
         }
+
     }
 
     public void determineWinner() {
-
-        if (playerHand.noBust() && (Math.abs(21-playerHand.handScore)<Math.abs(21-oppHand.handScore)) ) {
-            playerRecord+=1;
-            System.out.println(player.getName()+" wins!");
+        if (player2Hand.noBust() && (Math.abs(21-player2Hand.handScore)<Math.abs(21-player1Hand.handScore) || !player1Hand.noBust()) ){
+            player2Record+=1;
+            System.out.println(player2.getName()+" wins!");
         }
-        else if (playerHand.handScore!=oppHand.handScore){
-            oppRecord+=1;
-            System.out.println(opponent.getName()+" wins!");
+        else if (player1Hand.noBust() && (Math.abs(21-player1Hand.handScore)<Math.abs(21-player2Hand.handScore)) ) {
+            player1Record+=1;
+            System.out.println(player1.getName()+" wins!");
+        }
+        else {
+            System.out.println("There has been a tie. No winner!");
         }
 
     }
 
-    public void getHands() {
-        System.out.println(player.getName()+"'s "+playerHand);
-        System.out.println(opponent.getName()+"'s "+ oppHand);
-    }
-
-    public boolean checkShoe() {
+    public void checkShoe() {
         if (shoe.getShoeSize()<16) {
             shoe.resetShoe();
-            return true;
+            shoe.shuffle();
+            player1.shoeWasReset(true);
+            player2.shoeWasReset(true);
+            //return true;
         } else {
-            return false;
+            player1.shoeWasReset(false);
+            player2.shoeWasReset(false);
+            //return false;
+
         }
     }
 
-    public void getLastRoundHands() {
-        System.out.print("Last Round");
-        System.out.println(oldPlayerHand);
-        System.out.println(oldOppHand);
+    public void newHands() {
+        player1Hand.newHand();
+        player2Hand.newHand();
     }
 
 
+    public void displayRecords() {
+        System.out.println(player1.getName()+" has "+ player1Record + " wins");
+        System.out.println(player2.getName()+" has "+ player2Record + " wins");
+
+    }
+
+    public Hand getPlayer1Hand() {
+        return player1Hand;
+    }
+
+    public Hand getPlayer2Hand() {
+        return player2Hand;
+    }
 }

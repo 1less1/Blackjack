@@ -3,25 +3,29 @@ package blackjack;
 import java.util.ArrayList;
 
 public class Hand {
+
+    public Shoe shoe;
     public ArrayList<Card> hand;
 
     public Integer handScore;
 
     public boolean ace;
+    public Integer numAces;
 
 
     public Hand (Shoe s) {
         hand = new ArrayList<>();
-
         // Initializes deck with 2 cards drawn from a shuffled shoe
-        s.shuffle();
-        hitHand(s.drawCard());
-        hitHand(s.drawCard());
+        this.shoe=s;
+        hitHand(shoe.drawCard());
+        hitHand(shoe.drawCard());
     }
 
 
     public void calcHandScore() {
         handScore=0;
+        ace=false;
+        numAces=0;
 
         for (Card c : hand) {
             // determine the point value for each card when we will start the game
@@ -32,6 +36,7 @@ public class Hand {
             // elif implementation
             else if (c.rank==0) {
                 ace=true;
+                numAces+=1;
                 c.pointValue = 11;
 
             }
@@ -43,7 +48,7 @@ public class Hand {
             handScore+=c.pointValue;
 
             if (ace && handScore>21) {
-                handScore-=10;
+                handScore-=(10*numAces);
             }
         }
 
@@ -65,6 +70,7 @@ public class Hand {
 
     public void newHand() {
         hand.clear();
+        hitHand(shoe.drawCard());
     }
 
     public Boolean noBust() {

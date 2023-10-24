@@ -1,13 +1,11 @@
 package blackjack;
 
 public interface Player {
-    boolean willHitHand();
+    boolean willHitHand(Hand h);
 
-    void hitter();
+    Hand seeOpponentsCards(Hand h);
 
-    void seeOpponentsCards(Hand h);
-
-    void shoeWasReset(Integer shoeSize);
+    void shoeWasReset(Boolean r);
 
     String getName();
 }

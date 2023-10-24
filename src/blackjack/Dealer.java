@@ -2,45 +2,40 @@ package blackjack;
 
 public class Dealer implements Player{
 
-
-    public Hand dealerHand;
-    public Hand oppHand;
-    public Shoe shoe;
-
     public String name;
+    public boolean reset=false;
 
-    public Boolean shoeReset;
-    public Dealer(String n, Shoe s, Hand dh, Hand oh ) {
-        dealerHand = dh;
-        oppHand=oh;
-        shoe=s;
+    public Hand opponentsHand;
+
+    public Dealer(String n) {
         name=n;
-
     }
+
     @Override
-    public boolean willHitHand(){
-        if (dealerHand.handScore>=oppHand.handScore) {
-            System.out.println(name+" will stay :(");
+    public boolean willHitHand(Hand h) {
+        if (h.getHandScore()>=opponentsHand.getHandScore()) {
+            //System.out.println(name+" will stay :(");
             return false;
         }
         else {
-            System.out.println(name+" will hit!");
+            //System.out.println(name+" will hit!");
             return true;
         }
     }
 
     @Override
-    public void hitter() {
-        dealerHand.hitHand(shoe.drawCard());
+    public Hand seeOpponentsCards(Hand h) {
+        opponentsHand=h;
+        return h;
     }
 
     @Override
-    public void seeOpponentsCards(Hand h) {
-
-    }
-
-    @Override
-    public void shoeWasReset(Integer shoeSize) {
+    public void shoeWasReset(Boolean r) {
+        if (r) {
+            reset=true;
+        } else {
+            reset=false;
+        }
     }
 
     @Override

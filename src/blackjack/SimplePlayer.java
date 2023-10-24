@@ -1,44 +1,44 @@
 package blackjack;
 
+import java.util.Locale;
+
 public class SimplePlayer implements Player{
 
-
-    public Hand hand;
-    public Shoe shoe;
-
     public String name;
+    public boolean reset=false;
 
-    public Boolean shoeReset;
+    public Hand opponentsHand;
 
-    public SimplePlayer(String n, Shoe s, Hand h) {
+    public SimplePlayer(String n) {
         name=n;
-        shoe=s;
-        hand=h;
     }
 
     @Override
-    public boolean willHitHand() {
-        if (hand.handScore>=17) {
-            System.out.println(name+" will stay :(");
+    public boolean willHitHand(Hand h) {
+        if (h.getHandScore()>=17) {
+            //System.out.println(name+" will stay :(");
             return false;
         }
         else {
-            System.out.println(name+" will hit!");
+            //System.out.println(name+" will hit!");
             return true;
         }
-    }
-    @Override
-    public void hitter() {
-        hand.hitHand(shoe.drawCard());
+        // have this return true probably then call a hitter
     }
 
     @Override
-    public void seeOpponentsCards(Hand h) {
-        System.out.println("Last Game Opponent's "+h);
-
+    public Hand seeOpponentsCards(Hand h) {
+        opponentsHand=h;
+        return h;
     }
+
     @Override
-    public void shoeWasReset(Integer decks) {
+    public void shoeWasReset(Boolean r) {
+        if (r) {
+            reset=true;
+        } else {
+            reset=false;
+        }
 
     }
 
