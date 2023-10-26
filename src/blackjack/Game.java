@@ -26,14 +26,16 @@ public class Game {
 
         for (int i=0; i<numRounds; i++) {
             //play game
-            checkShoe();
+            //checkShoe();
             takeTurns();
 
             System.out.println(player1.getName()+"'s "+ getPlayer1Hand());
             System.out.println(player2.getName()+"'s "+ getPlayer2Hand());
 
             determineWinner();
+            System.out.println();
 
+            checkShoe();
             newHands();
         }
         displayRecords();
@@ -49,7 +51,6 @@ public class Game {
         while (player1.willHitHand(player1Hand) && player1Hand.noBust()) {
             hitter(player1Hand);
         }
-
         if (player1Hand.noBust()) {
             player2.seeOpponentsCards(player1Hand);
             while(player2.willHitHand(player2Hand) && player2Hand.noBust()) {
@@ -60,13 +61,14 @@ public class Game {
     }
 
     public void determineWinner() {
-        if (player2Hand.noBust() && (Math.abs(21-player2Hand.handScore)<Math.abs(21-player1Hand.handScore) || !player1Hand.noBust()) ){
-            player2Record+=1;
-            System.out.println(player2.getName()+" wins!");
-        }
-        else if (player1Hand.noBust() && (Math.abs(21-player1Hand.handScore)<Math.abs(21-player2Hand.handScore)) ) {
+
+        if (player1Hand.noBust() && ((player1Hand.getHandScore()>player2Hand.getHandScore()) || !player2Hand.noBust())) {
             player1Record+=1;
             System.out.println(player1.getName()+" wins!");
+        }
+        else if (player2Hand.noBust() && ((player2Hand.getHandScore()>player1Hand.getHandScore()) || !player1Hand.noBust())) {
+            player2Record+=1;
+            System.out.println(player2.getName()+" wins!");
         }
         else {
             System.out.println("There has been a tie. No winner!");
@@ -75,9 +77,8 @@ public class Game {
     }
 
     public void checkShoe() {
-        if (shoe.getShoeSize()<16) {
+        if ((shoe.getShoeSize())<16) {
             shoe.resetShoe();
-            shoe.shuffle();
             player1.shoeWasReset(true);
             player2.shoeWasReset(true);
             //return true;

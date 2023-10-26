@@ -1,15 +1,13 @@
 package blackjack;
 
-import java.util.Locale;
-
-public class SimplePlayer implements Player{
+public class AtlanticCityDealer implements Player{
 
     public String name;
     public boolean reset=false;
 
     public Hand opponentsHand;
 
-    public SimplePlayer(String n) {
+    public AtlanticCityDealer(String n) {
         name=n;
     }
 
@@ -27,9 +25,9 @@ public class SimplePlayer implements Player{
     }
 
     @Override
-    public Hand seeOpponentsCards(Hand h) {
+    public void seeOpponentsCards(Hand h) {
         opponentsHand=h;
-        return h;
+        //return h;
     }
 
     @Override

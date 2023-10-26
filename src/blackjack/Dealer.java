@@ -24,9 +24,9 @@ public class Dealer implements Player{
     }
 
     @Override
-    public Hand seeOpponentsCards(Hand h) {
+    public void seeOpponentsCards(Hand h) {
         opponentsHand=h;
-        return h;
+        //return h;
     }
 
     @Override

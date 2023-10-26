@@ -3,10 +3,11 @@ package blackjack;
 public class GameDriver {
 
     public static void main(String args[]) {
-        SimplePlayer john = new SimplePlayer("John");
+        AtlanticCityDealer acdealer = new AtlanticCityDealer("Atlantic City Dealer");
         Dealer dealer = new Dealer("Dealer");
-        Game g = new Game(1,john,dealer);
-        g.playRound(5);
+        AtlanticCityDealer bob = new AtlanticCityDealer("Bob");
+        Game g = new Game(1,acdealer,dealer);
+        g.playRound(500);
 
 
     }
