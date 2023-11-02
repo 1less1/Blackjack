@@ -30,7 +30,6 @@ public class AtlanticCityDealer implements Player{
     @Override
     public void seeOpponentsCards(Hand h) {
         opponentsHand=h;
-        //return h;
     }
 
     @Override
