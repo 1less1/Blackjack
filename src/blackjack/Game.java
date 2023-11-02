@@ -3,6 +3,7 @@ package blackjack;
 public class Game {
 
     public Shoe shoe;
+    public DiscardPile discardPile;
     public Player player1;
     public Player player2;
 
@@ -13,7 +14,8 @@ public class Game {
     public Integer player2Record=0;
 
     public Game(Integer numDecks, Player player1, Player player2) {
-        this.shoe= new Shoe(numDecks);
+        this.discardPile = new DiscardPile(numDecks);
+        this.shoe= new Shoe(numDecks, discardPile);
         this.player1=player1;
         this.player2=player2;
 
@@ -48,11 +50,17 @@ public class Game {
     }
 
     public void takeTurns() {
+        //Player 1 sees discard pile that has cards before this round has started
+        player1.seeDiscardPile(discardPile);
+        player1.seeOpponentsCards(player2Hand);
         while (player1.willHitHand(player1Hand) && player1Hand.noBust()) {
             hitter(player1Hand);
         }
+
+        //Player 2 sees discard pile that has cards including cards drawn this round from Player 1
+        player2.seeDiscardPile(discardPile);
+        player2.seeOpponentsCards(player1Hand);
         if (player1Hand.noBust()) {
-            player2.seeOpponentsCards(player1Hand);
             while(player2.willHitHand(player2Hand) && player2Hand.noBust()) {
                 hitter(player2Hand);
             }
@@ -81,6 +89,7 @@ public class Game {
             shoe.resetShoe();
             player1.shoeWasReset(true);
             player2.shoeWasReset(true);
+            discardPile.resetDiscardPile();
             //return true;
         } else {
             player1.shoeWasReset(false);

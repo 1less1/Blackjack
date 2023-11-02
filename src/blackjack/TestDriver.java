@@ -3,10 +3,10 @@ package blackjack;
 public class TestDriver {
 
     public static void main (String[] args) {
-        Shoe s = new Shoe(1);
-
+        DiscardPile dp = new DiscardPile(1);
+        System.out.println(dp);
+        Shoe s = new Shoe(1,dp);
         Hand h = new Hand(s);
-
         System.out.println(h);
         System.out.println();
 
@@ -15,14 +15,17 @@ public class TestDriver {
         Card ace2 = new Card(0);
         Card face =  new Card(10);
         h.newHand();
-        h.hitHand(ace1);
-        h.hitHand(face);
+        //h.hitHand(ace1);
+        //h.hitHand(face);
+
+        h.hitHand(s.drawCard());
+        h.hitHand(s.drawCard());
 
         System.out.println(h);
 
-        h.hitHand(ace2);
-
-        System.out.println(h);
+        System.out.println(dp);
+        dp.determineCards();
+        System.out.println(dp.getTrueCount());
 
 
 

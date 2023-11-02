@@ -9,11 +9,14 @@ public class Shoe implements Iterable<Card>{
     private Integer numDecks;
     private ArrayList<Card> shoe = new ArrayList<>();
 
-    // Extra credit: create an extra list as the discard pile and you can use this to have the computer "count cards"
-    public Shoe(Integer nD) {
+    private DiscardPile discardPile;
+
+
+    // Extra credit: create an extra list as the discard pile. Use it to have the computer "count cards"
+    public Shoe(Integer nD, DiscardPile dp) {
         numDecks = nD;
         resetShoe();
-
+        discardPile=dp;
     }
 
     public void resetShoe() {
@@ -34,7 +37,10 @@ public class Shoe implements Iterable<Card>{
     }
 
     public Card drawCard() {
-        return shoe.remove(shoe.size()-1);
+        Card c = shoe.remove(shoe.size()-1);
+        discardPile.addCard(c); //Add drawn card to discard pile
+        return c;
+
     }
 
     public void shuffle() {
@@ -53,4 +59,5 @@ public class Shoe implements Iterable<Card>{
     public Integer getShoeSize() {
         return shoe.size();
     }
+
 }

@@ -1,11 +1,14 @@
 package blackjack;
 
+import java.util.ArrayList;
+
 public class Dealer implements Player{
 
     public String name;
     public boolean reset=false;
 
     public Hand opponentsHand;
+    public DiscardPile dp;
 
     public Dealer(String n) {
         name=n;
@@ -28,6 +31,12 @@ public class Dealer implements Player{
         opponentsHand=h;
         //return h;
     }
+
+    @Override
+    public void seeDiscardPile(DiscardPile dp) {
+        this.dp=dp;
+    }
+
 
     @Override
     public void shoeWasReset(Boolean r) {
