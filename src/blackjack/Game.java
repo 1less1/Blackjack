@@ -90,11 +90,9 @@ public class Game {
             player1.shoeWasReset(true);
             player2.shoeWasReset(true);
             discardPile.resetDiscardPile();
-            //return true;
         } else {
             player1.shoeWasReset(false);
             player2.shoeWasReset(false);
-            //return false;
 
         }
     }

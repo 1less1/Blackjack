@@ -49,7 +49,12 @@ public class Hand {
 
         // check for aces and convert them to a score of "1" from 11 if the
         // hand score is exceeding 21
-        if (ace && handScore>21) {
+
+        //I have put a functionality so when there are two aces, one is worth 11 and the other is worth 1 for a score of 12
+        if (numAces>=2 && (handScore-(10*(numAces-1)))<21) {
+            handScore-=(10*(numAces-1));
+        }
+        else if (ace && handScore>21) {
             handScore-=(10*numAces);
         }
 
@@ -61,19 +66,15 @@ public class Hand {
 
     }
 
-    public ArrayList<Card> getHand() {
-        return hand;
-    }
-
-    public Integer getHandScore() {
-        return handScore;
-    }
-
     public void newHand() {
         hand.clear();
         // draw 2 cards
         hitHand(shoe.drawCard());
         hitHand(shoe.drawCard());
+    }
+
+    public void clearHand() {
+        hand.clear();
     }
 
     public Boolean noBust() {
@@ -83,6 +84,14 @@ public class Hand {
             //System.out.println("Bust!");
             return false;
         }
+    }
+
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+
+    public Integer getHandScore() {
+        return handScore;
     }
 
     public String toString() {

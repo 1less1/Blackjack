@@ -6,8 +6,8 @@ public class GameDriver {
         AtlanticCityDealer acdealer = new AtlanticCityDealer("Atlantic City Dealer");
         Dealer dealer = new Dealer("Dealer");
         CountingPlayer cp = new CountingPlayer("Shark");
-        Game g = new Game(2,cp,acdealer);
-        g.playRound(1000);
+        Game g = new Game(2,acdealer,acdealer);
+        g.playRound(500);
 
 
 
