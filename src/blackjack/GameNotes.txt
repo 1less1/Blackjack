@@ -1,0 +1,14 @@
+Blackjack Game
+By: Dom Olhava
+
+-To Operate this Blackjack game. Please use the GameDriver Class
+-You can edit the two players matching up and the amount of rounds to sim in the game constructor
+-I have created three types of players:
+    1. Atlantic City Dealer
+    2. Dealer - Will hit hand until they are higher than the player or bust - Creates a lot of wins
+    3. Counting Player - Counts cards using a discard pile functionality which gives the 1st player an edge over the 2nd player (dealer)
+
+Extra Features Implemented:
+-Discard Pile feature to allow players to count cards
+-Clear and concise play by play printed within the console
+-Easy to use game driver and I'd say decent OOD
