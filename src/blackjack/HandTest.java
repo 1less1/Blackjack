@@ -1,6 +1,7 @@
 package blackjack;
 
 import org.junit.Test;
+import org.junit.*;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
@@ -10,13 +11,22 @@ import static org.junit.Assert.*;
 public class HandTest {
 
     Integer numDecks=2;
-   DiscardPile dp = new DiscardPile(numDecks);
-   Shoe shoe = new Shoe(numDecks, dp);
+   private DiscardPile dp;
+   private Shoe shoe;
 
-   Hand hand = new Hand(shoe);
+   private Hand hand;
 
    Card ace = new Card(0);
    Card face = new Card(9);
+
+   @Before
+   public void setUp() {
+       dp = new DiscardPile(numDecks);
+       shoe = new Shoe(numDecks, dp);
+
+       hand = new Hand(shoe);
+   }
+
 
     @Test
     public void testHand() {
